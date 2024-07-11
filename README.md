@@ -24,7 +24,7 @@ You can install the development version of OSPSuite.Addins from
 remotes::install_github("pchelle/OSPSuite.Addins")
 ```
 
-> \[!IMPORTANT\] Once installed, you will need to restart RStudio to see
+> [!IMPORTANT] Once installed, you will need to restart RStudio to see
 > the functions from `{ospsuite.addins}` in the Addins list.
 
 ## Examples
@@ -38,7 +38,7 @@ the following code:
 ospsuite.addins::tableOfUnits()
 ```
 
-> \[!TIP\] You can also go to the Addins menu in RStudio and select
+> [!TIP] You can also go to the Addins menu in RStudio and select
 > “**View OSP Units**”.
 
 ### Get all OSPSuite PK Parameters, their dimensions and units
@@ -50,5 +50,5 @@ and units, you can use the following code:
 ospsuite.addins::tableOfPKParameters()
 ```
 
-> \[!TIP\] You can also go to the Addins menu in RStudio and select
+> [!TIP] You can also go to the Addins menu in RStudio and select
 > “**View PK Parameters**”.
