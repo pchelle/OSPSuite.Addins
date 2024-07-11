@@ -20,38 +20,40 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/OSPSuite.Addins)](https://CRAN.R-project.org/package=OSPSuite.Addins)
 <!-- badges: end -->
 
-The goal of OSPSuite.Addins is to ...
+The goal of `{ospsuite.addins}` is to provide RStudio addins to work with the Open System Pharmacology ecosystem.
 
 ## Installation
 
 You can install the development version of OSPSuite.Addins from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("pchelle/OSPSuite.Addins")
+# install.packages("remotes")
+remotes::install_github("pchelle/OSPSuite.Addins")
 ```
 
-## Example
+> [!IMPORTANT]
+> Once installed, you will need to restart RStudio to see the functions from `{ospsuite.addins}` in the Addins list.
 
-This is a basic example which shows you how to solve a common problem:
+## Examples
 
-```{r example}
-library(OSPSuite.Addins)
-## basic example code
+### Get all OSPSuite dimensions and units
+
+To get a datatable of all the OSPSuite dimensions and units, you can use the following code:
+
+```{r example-table-of-units, eval=FALSE}
+ospsuite.addins::tableOfUnits()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+> [!TIP]
+> You can also go to the Addins menu in RStudio and select "__View OSP Units__".
 
-```{r cars}
-summary(cars)
+### Get all OSPSuite PK Parameters, their dimensions and units
+
+To get a datatable of all the OSPSuite PK Parameters, their dimensions and units, you can use the following code:
+
+```{r example-table-of-pk, eval=FALSE}
+ospsuite.addins::tableOfPKParameters()
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+> [!TIP]
+> You can also go to the Addins menu in RStudio and select "__View PK Parameters__".
