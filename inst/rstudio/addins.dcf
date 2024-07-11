@@ -1,0 +1,9 @@
+Name: View OSP Units
+Description: View datatable of OSPSuite Dimensions, Units and Base Units
+Binding: tableOfUnits
+Interactive: true
+
+Name: View PK Parameters
+Description: View datatable of OSPSuite PK Parameters
+Binding: tableOfPKParameters
+Interactive: true
