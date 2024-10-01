@@ -135,7 +135,7 @@ runSimulationTree <- function() {
 #' - format PK analysis results
 #' - save PK analysis results
 #' @export
-insertOSPTemplate <- function() {
+insertOSPSuiteTemplate <- function() {
   textTemplate <- paste(
     "library(ospsuite)",
     "# Load the simulation",
