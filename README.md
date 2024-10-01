@@ -25,30 +25,47 @@ remotes::install_github("pchelle/OSPSuite.Addins")
 ```
 
 > [!IMPORTANT] 
-> Once installed, you will need to restart RStudio to see the functions from `{ospsuite.addins}` in the Addins list.
+> Once installed, you may need to restart RStudio to see the functions from `{ospsuite.addins}` in the Addins list.
 
-## Examples
+## Addins for `{ospsuite}`
+
+> [!NOTE]
+> All the functions introduced in the examples below can be access by clicking in the Addins menu in RStudio and select the corresponding item.
+
+### View simulation tree
+
+```r
+ospsuite.addins::runSimulationTree()
+```
+
+### Insert OSPSuite template code
+
+```r
+ospsuite.addins::insertOSPSuiteTemplate()
+```
 
 ### Get all OSPSuite dimensions and units
 
-To get a datatable of all the OSPSuite dimensions and units, you can use
-the following code:
-
-``` r
+```r
 ospsuite.addins::tableOfUnits()
 ```
 
-> [!TIP]
-> You can also go to the Addins menu in RStudio and select "**View OSP Units**".
-
 ### Get all OSPSuite PK Parameters, their dimensions and units
 
-To get a datatable of all the OSPSuite PK Parameters, their dimensions
-and units, you can use the following code:
-
-``` r
+```r
 ospsuite.addins::tableOfPKParameters()
 ```
 
-> [!TIP]
-> You can also go to the Addins menu in RStudio and select "**View PK Parameters**".
+## Addins for `{ospsuite.reportingengine}`
+
+### View your markdown or docx report
+
+```r
+ospsuite.addins::viewReport()
+```
+
+### Copy and open a Qualification Template
+
+```r
+ospsuite.addins::copyQualificationTemplate()
+```

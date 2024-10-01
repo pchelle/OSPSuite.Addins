@@ -1,3 +1,13 @@
+Name: View Simulation Tree
+Description: View simulation tree and select branches
+Binding: runSimulationTree
+Interactive: true
+
+Name: Insert OSPSuite Template
+Description: Insert OSPSuite Template
+Binding: insertOSPSuiteTemplate
+Interactive: false
+
 Name: View OSP Units
 Description: View datatable of OSPSuite Dimensions, Units and Base Units
 Binding: tableOfUnits
@@ -7,3 +17,13 @@ Name: View PK Parameters
 Description: View datatable of OSPSuite PK Parameters
 Binding: tableOfPKParameters
 Interactive: true
+
+Name: View Report
+Description: View Reporting Engine Report
+Binding: viewReport
+Interactive: false
+
+Name: Copy Qualification Template
+Description: Copy and open Qualification Template file
+Binding: copyQualificationTemplate
+Interactive: false
