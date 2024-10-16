@@ -120,6 +120,155 @@ runSimulationTree <- function() {
   return(invisible())
 }
 
+
+#' @title unitConverter
+#' @description
+#' Shiny app that provides a converter for OSPSuite units.
+#'
+#' @return A shiny app
+#' @export
+#' @import shiny
+#' @import miniUI
+unitConverter <- function() {
+  # Shiny App UI
+  ui <- miniPage(
+    gadgetTitleBar("Unit Converter"),
+    miniContentPanel(
+      fillPage(
+        selectInput(
+          "dimension",
+          label = span(icon("folder-open"), "Dimension"),
+          ospsuite::ospDimensions
+        ),
+        fillRow(
+          height = "40%",
+          tagList(
+            selectInput(
+              "unit1",
+              label = span(icon("ruler-vertical"), "Unit 1"),
+              ospsuite::ospUnits$`Abundance per mass protein`
+            ),
+            numericInput("value1", label = NULL, value = 0)
+          ),
+          tagList(
+            selectInput(
+              "unit2",
+              label = span(icon("ruler"), "Unit 2"),
+              ospsuite::ospUnits$`Abundance per mass protein`
+            ),
+            numericInput("value2", label = NULL, value = 0)
+          )
+        ),
+        htmlOutput("molWeightNotification"),
+        fillRow(
+          height = "40%",
+          numericInput(
+            "molWeight",
+            label = span(icon("weight-hanging"), "Molecular Weight"),
+            value = 1,
+            min = 0
+          ),
+          selectInput(
+            "molWeightUnit",
+            label = span(icon("ruler"), "Unit"),
+            choices = ospsuite::ospUnits$`Molecular weight`,
+            selected = "g/mol"
+          )
+        )
+      )
+    )
+  )
+
+  # Shiny App Server
+  server <- function(input, output, session) {
+    # Reactive check of combined dimensions
+    isConcentration <- reactive({
+      input$dimension %in% c("Concentration (mass)", "Concentration (molar)")
+    })
+    isAmount <- reactive({
+      input$dimension %in% c("Amount", "Mass")
+    })
+
+    observeEvent(input$dimension, {
+      availableUnits <- ospsuite::ospUnits[[input$dimension]]
+      # Providing available units as a named list
+      # creates categories in the selector
+      if (isConcentration()) {
+        availableUnits <- ospsuite::ospUnits[c("Concentration [mass]", "Concentration [molar]")]
+      }
+      if (isAmount()) {
+        availableUnits <- ospsuite::ospUnits[c("Mass", "Amount")]
+      }
+      updateSelectInput(session, "unit1", choices = availableUnits)
+      updateSelectInput(session, "unit2", choices = availableUnits)
+    })
+
+    # Reactive green notification stating combined units are supported
+    output$molWeightNotification <- renderText({
+      if (!any(isConcentration(), isAmount())) {
+        return(NULL)
+      }
+      HTML(paste0(
+        "<font color=\"darkgreen\">",
+        icon("circle-info"),
+        ifelse(
+          isConcentration(),
+          " Both Mass and Molar Concentrations are supported.",
+          " Both Mass and Amount are supported."
+        ),
+        "<br>Please ensure the Molecular Weight is provided appropriately.",
+        "</font>"
+      ))
+    })
+
+    # Every modification will update value2 in right side
+    # Except when modified by user
+    observeEvent(
+      c(input$value1, input$unit1, input$unit2, input$molWeight, input$molWeightUnit),
+      {
+        updateNumericInput(
+          session,
+          "value2",
+          value = ospsuite::toUnit(
+            quantityOrDimension = input$dimension,
+            values = input$value1,
+            targetUnit = input$unit2,
+            sourceUnit = input$unit1,
+            molWeight = input$molWeight,
+            molWeightUnit = input$molWeightUnit
+          )
+        )
+      }
+    )
+
+    observeEvent(input$value2, {
+      updateNumericInput(
+        session,
+        "value1",
+        value = ospsuite::toUnit(
+          quantityOrDimension = input$dimension,
+          values = input$value2,
+          targetUnit = input$unit1,
+          sourceUnit = input$unit2,
+          molWeight = input$molWeight,
+          molWeightUnit = input$molWeightUnit
+        )
+      )
+    })
+
+    # Handle the Done button being pressed.
+    observeEvent(input$done, {
+      stopApp()
+    })
+    observeEvent(input$cancel, {
+      stopApp()
+    })
+  }
+  # Run the app on default viewer
+  runGadget(ui, server)
+  return(invisible())
+}
+
 #' @title insertOSPSuiteTemplate
 #' @description
 #' Insert template code in current document aiming at
