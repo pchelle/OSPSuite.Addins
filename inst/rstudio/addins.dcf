@@ -13,6 +13,11 @@ Description: View datatable of OSPSuite Dimensions, Units and Base Units
 Binding: tableOfUnits
 Interactive: true
 
+Name: OSP Unit Converter
+Description: Convert Values in Desired OSPSuite Unit
+Binding: unitConverter
+Interactive: true
+
 Name: View PK Parameters
 Description: View datatable of OSPSuite PK Parameters
 Binding: tableOfPKParameters

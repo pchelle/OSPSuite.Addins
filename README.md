@@ -30,42 +30,22 @@ remotes::install_github("pchelle/OSPSuite.Addins")
 ## Addins for `{ospsuite}`
 
 > [!NOTE]
-> All the functions introduced in the examples below can be access by clicking in the Addins menu in RStudio and select the corresponding item.
+> All the functions introduced in the examples below can be access by clicking in the __Addins__ menu in RStudio and select the corresponding item.
 
-### View simulation tree
 
-```r
-ospsuite.addins::runSimulationTree()
-```
+| &#128204; Name | &#128203; Description | &#128223; Function |
+|----------------|-----------------------|----------|
+| __View OSP Units__ | View datatable of OSPSuite Dimensions,<br> Units and Base Units | `tableOfUnits()` |
+| __View PK Parameters__ | View datatable of OSPSuite PK Parameters | `tableOfPKParameters()` |
+| __OSP Unit Converter__ | Convert Values in Desired OSPSuite Unit | `unitConverter()` |
+| __View Simulation Tree__ | View simulation tree<br>and select branches | `runSimulationTree()` |
+| __Insert OSPSuite Template__ | Insert OSPSuite Template | `insertOSPSuiteTemplate()` |
 
-### Insert OSPSuite template code
-
-```r
-ospsuite.addins::insertOSPSuiteTemplate()
-```
-
-### Get all OSPSuite dimensions and units
-
-```r
-ospsuite.addins::tableOfUnits()
-```
-
-### Get all OSPSuite PK Parameters, their dimensions and units
-
-```r
-ospsuite.addins::tableOfPKParameters()
-```
 
 ## Addins for `{ospsuite.reportingengine}`
 
-### View your markdown or docx report
+| &#128204; Name | &#128203; Description | &#128223; Function |
+|----------------|-----------------------|----------|
+| __View Report__ | View Reporting Engine Report | `viewReport()` |
+| __Copy Qualification Template__ | Copy and open the Qualification Template file | `copyQualificationTemplate()` |
 
-```r
-ospsuite.addins::viewReport()
-```
-
-### Copy and open a Qualification Template
-
-```r
-ospsuite.addins::copyQualificationTemplate()
-```
