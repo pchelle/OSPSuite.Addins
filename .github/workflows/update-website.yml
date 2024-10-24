@@ -29,7 +29,7 @@ jobs:
         shell: Rscript {0}
       # The script temporarily create index and vignettes for pkgdown to build site
       - name: Build pkgdown website
-        run: pkgdown::build_site(install = FALSE)
+        run: pkgdown::build_site(install = FALSE, examples = FALSE)
         shell: Rscript {0}
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4

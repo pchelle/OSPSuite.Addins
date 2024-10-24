@@ -11,6 +11,9 @@ Authors@R:
              comment = c(ORCID = "0000-0002-0167-4774")))
 Description: This package provides functions and interactive apps as addins to work with R packages from OSPSuite framework.
 License: GPL (>= 3)
+URL: https://github.com/open-systems-pharmacology/ospsuite.addins
+BugReports: 
+    https://github.com/open-systems-pharmacology/ospsuite.addins/issues
 Suggests: 
     knitr,
     rmarkdown,
