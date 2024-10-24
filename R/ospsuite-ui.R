@@ -185,16 +185,25 @@ unitConverter <- function() {
     isConcentration <- reactive({
       input$dimension %in% c("Concentration (mass)", "Concentration (molar)")
     })
+    isAUC <- reactive({
+      input$dimension %in% c("AUC (mass)", "AUC (molar)")
+    })
     isAmount <- reactive({
       input$dimension %in% c("Amount", "Mass")
     })
-
+    
     observeEvent(input$dimension, {
-      availableUnits <- ospsuite::ospUnits[[input$dimension]]
+      # In ospUnits, round brackets are replaced by squared brackets
+      bracketDimension <- gsub(pattern = "\\(", replacement = "[", x = input$dimension)
+      bracketDimension <- gsub(pattern = "\\)", replacement = "]", x = bracketDimension) 
+      availableUnits <- ospsuite::ospUnits[[bracketDimension]]
       # Providing available units as a named list
       # creates categories in the selector
       if (isConcentration()) {
         availableUnits <- ospsuite::ospUnits[c("Concentration [mass]", "Concentration [molar]")]
+      }
+      if (isAUC()) {
+        availableUnits <- ospsuite::ospUnits[c("AUC [mass]", "AUC [molar]")]
       }
       if (isAmount()) {
         availableUnits <- ospsuite::ospUnits[c("Mass", "Amount")]
@@ -205,7 +214,7 @@ unitConverter <- function() {
 
     # Reactive green notification stating combined units are supported
     output$molWeightNotification <- renderText({
-      if (!any(isConcentration(), isAmount())) {
+      if (!any(isConcentration(), isAUC(), isAmount())) {
         return(NULL)
       }
       HTML(paste0(
@@ -214,13 +223,18 @@ unitConverter <- function() {
         ifelse(
           isConcentration(),
           " Both Mass and Molar Concentrations are supported.",
-          " Both Mass and Amount are supported."
+          ifelse(
+            isAUC(),
+            " Both Mass and Molar AUCs are supported.",
+            " Both Mass and Amount are supported."
+          )
         ),
         "<br>Please ensure the Molecular Weight is provided appropriately.",
         "</font>"
       ))
     })
 
+    #inverse conc
     # Every modification will update value2 in right side
     # Except when modified by user
     observeEvent(
@@ -232,8 +246,8 @@ unitConverter <- function() {
           value = ospsuite::toUnit(
             quantityOrDimension = input$dimension,
             values = input$value1,
-            targetUnit = input$unit2,
-            sourceUnit = input$unit1,
+            targetUnit = ifelse(input$unit2 %in% "Unitless", "", input$unit2),
+            sourceUnit = ifelse(input$unit1 %in% "Unitless", "", input$unit1),
             molWeight = input$molWeight,
             molWeightUnit = input$molWeightUnit
           )
@@ -248,8 +262,8 @@ unitConverter <- function() {
         value = ospsuite::toUnit(
           quantityOrDimension = input$dimension,
           values = input$value2,
-          targetUnit = input$unit1,
-          sourceUnit = input$unit2,
+          targetUnit = ifelse(input$unit1 %in% "Unitless", "", input$unit1),
+          sourceUnit = ifelse(input$unit2 %in% "Unitless", "", input$unit2),
           molWeight = input$molWeight,
           molWeightUnit = input$molWeightUnit
         )

@@ -1,0 +1,34 @@
+---
+title: "Copy the Qualification Template"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Copy the Qualification Template}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Qualification template
+
+The Qualification template is an R script that provides the typical workflow for the qualification of a model. 
+
+More details are available in the documentation of the OSPSuite Reporting Engine package [&#x1F517;](https://www.open-systems-pharmacology.org/OSPSuite.ReportingEngine/articles/qualification-workflow.html)
+
+## Copying the qualification template
+
+The function `copyQualificationTemplate()` copies the RScript `qualification-template-workflow.R` in the current working directory (see `getwd()` and `setwd()`) as illustrated in the tutorial video below.
+
+Users can then modify the template to fit their needs.
+
+<details><summary>View Insert Template Video</summary>
+
+![](videos/copy-qualification-template.mp4){width="90%"}
+
+</details>

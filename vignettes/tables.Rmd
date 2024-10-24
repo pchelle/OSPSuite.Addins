@@ -1,0 +1,42 @@
+---
+title: "Tables of Units and PK Parameters"
+resource_files:
+  - videos
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tables of Units and PK Parameters}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## View OSP Units
+
+The function `tableOfUnits()` displays a datatable (see [`{DT}`](https://rstudio.github.io/DT/) package) of dimensions and units available in OSPSuite. RStudio users can also access the table using the Addin as illustrated in the video below.
+
+<details><summary>View OSP Units Video</summary>
+
+![](videos/table-units.mp4){width="90%"}
+
+</details>
+
+> <font color = "dodgerblue"><strong> &#x1f6c8;  Note </strong></font>
+> 
+> OSPSuite.Addins also provides a unit converter addin,
+> whose dedicated article is available [here &#x1F517;](./unit-converter.html)
+
+## View PK Parameters
+
+The function `tableOfPKParameters()` displays a datatable (see [`{DT}`](https://rstudio.github.io/DT/) package) of PK Parameters available in OSPSuite. RStudio users can also access the table using the Addin as illustrated in the video below.
+
+<details><summary>View OSP Units Video</summary>
+
+![](videos/table-pk-parameters.mp4){width="90%"}
+
+</details>

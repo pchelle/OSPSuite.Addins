@@ -1,0 +1,27 @@
+---
+title: "Insert OSPSuite Template"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Insert OSPSuite Template}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The function `insertOSPSuiteTemplate()` inserts in the current location of a RStudio (i.e. last position clicked) a template R code for loading a simulation, defining outputs and running its simulation results and PK analyses.
+
+Users can then modify the template to fit their needs.
+
+The tutorial video below illustrates the first step.
+
+<details><summary>View Insert Template Video</summary>
+
+![](videos/inserting-osp-template.mp4){width="90%"}
+
+</details>
