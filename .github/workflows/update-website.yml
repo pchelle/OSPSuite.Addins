@@ -22,14 +22,12 @@ jobs:
           use-public-rspm: true
       # No need to install ospsuite ecosystem
       # because the job only needs to display the md reports as html pages
-      - name: Packages to build website
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rmarkdown, any::pkgdown
+      - name: Packages to build website 
+        run: install.packages(c("rmarkdown", "pkgdown"))
+        shell: Rscript {0}
       # The script temporarily create index and vignettes for pkgdown to build site
       - name: Build pkgdown website
-        run: | 
-          pkgdown::build_site()
+        run: pkgdown::build_site(install = FALSE)
         shell: Rscript {0}
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
