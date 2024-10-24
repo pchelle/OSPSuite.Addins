@@ -1,0 +1,13 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  copy-qualification-template: copy-qualification-template.html
+  insert-osp-template: insert-osp-template.html
+  simulation-tree: simulation-tree.html
+  tables: tables.html
+  unit-converter: unit-converter.html
+last_built: 2024-10-24T13:47Z
+urls:
+  reference: https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference
+  article: https://www.open-systems-pharmacology.org/OSPSuite.Addins/articles
