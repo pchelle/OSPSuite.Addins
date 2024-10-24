@@ -10,8 +10,10 @@ Authors@R:
              email = "chelle.pierre@gmail.com",
              comment = c(ORCID = "0000-0002-0167-4774")))
 Description: This package provides functions and interactive apps as addins to work with R packages from OSPSuite framework.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
@@ -25,3 +27,4 @@ Depends:
     miniUI,
     rstudioapi,
     shiny
+VignetteBuilder: knitr

@@ -1,0 +1,51 @@
+---
+title: "Unit Converter"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Unit Converter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Converter
+
+The function `unitConverter()` starts a shiny app in the RStudio Viewer pane that allows users to convert between units of the same dimension as illustrated in the video below.
+
+<details><summary>View Unit Converter Video</summary>
+
+![](videos/unit-converter.mp4){width="90%"}
+
+</details>
+
+## Bridging Dimensions with Molecular Weight
+
+So far, the following dimensions can be bridged by __Molecular Weight__:
+
+- __Amount__ and __Mass__
+- __Concentration (mass)__ and __Concentration (molar)__
+- __AUC (mass)__ and __AUC (molar)__
+
+<!---
+TODO: include more units when ospsuite will provide the conversion
+- __Amount per time__ and __Mass per time__
+- __Amount per area__ and __Mass per area__
+- __Amount per area per time__ and __Mass per area per time__
+- __Amount per tissue__ and __Mass per tissue__
+--->
+
+When selecting one of these dimensions, users are notified by the app that conversion to the bridged dimension is supported.
+
+The __Molecular Weight__ and its __Unit__ defined by the user will be taken into account if converting to the bridged dimension.
+
+## Fractions
+
+For the  __Fraction__ dimension, the unit named `Unitless` is defined as such in the enum `ospUnits` and corresponds to the fraction as is. 
+
+If users need to convert between fractions, they should currently provide the unit `""` instead of `"Unitless"`.
