@@ -33,28 +33,79 @@ Quick tutorial videos showing how each addin works are available in the Articles
 
 Sections below provide a quick snapshot of the current addins and their purpose.
 
-## Addins for [`{ospsuite}`](https://www.open-systems-pharmacology.org/OSPSuite-R/) &#11088;
-
 > [!NOTE]
 > All the functions introduced in the examples below can be access by clicking in the __Addins__ menu in RStudio and select the corresponding item.
 
+## Addins for [`{ospsuite}`](https://www.open-systems-pharmacology.org/OSPSuite-R/) &#11088;
 
-| &#128204; Name | &#128203; Description | &#128223; Function |
-|----------------|-----------------------|----------|
-| __View OSP Units__ | View datatable of OSPSuite Dimensions,<br> Units and Base Units | `tableOfUnits()` |
-| __View PK Parameters__ | View datatable of OSPSuite PK Parameters | `tableOfPKParameters()` |
-| __OSP Unit Converter__ | Convert Values in Desired OSPSuite Unit | `unitConverter()` |
-| __View Simulation Tree__ | View simulation tree<br>and select branches | `runSimulationTree()` |
-| __Insert OSPSuite Template__ | Insert OSPSuite Template | `insertOSPSuiteTemplate()` |
 
+### View OSP Units
+
+View datatable of OSPSuite Dimensions, Units and Base Units
+
+```r
+ospsuite.addins::tableOfUnits()
+```
+
+### View PK Parameters
+
+View datatable of OSPSuite PK Parameters
+
+```r
+ospsuite.addins::tableOfPKParameters()
+```
+
+### OSP Unit Converter
+
+Convert Values in Desired OSPSuite Unit
+
+```r
+ospsuite.addins::unitConverter()
+```
+
+### View Simulation Tree
+
+View simulation tree and select branches
+
+```r
+ospsuite.addins::runSimulationTree()
+```
+
+### Insert OSPSuite Template
+
+Insert OSPSuite Template in your R Script
+
+```r
+ospsuite.addins::insertOSPSuiteTemplate()
+```
 
 ## Addins for [`{ospsuite.reportingengine}`](https://www.open-systems-pharmacology.org/OSPSuite.ReportingEngine/) &#11088;
 
-| &#128204; Name | &#128203; Description | &#128223; Function |
-|----------------|-----------------------|----------|
-| __View Report__ | View Reporting Engine Report | `viewReport()` |
-| __Copy Qualification Template__ | Copy and open the Qualification Template file | `copyQualificationTemplate()` |
+### View Report
 
+Open and view your report populated by the Reporting Engine with the appropriate software
+
+```r
+ospsuite.addins::viewReport()
+```
+
+### Copy Qualification Template
+
+Copy and open the Qualification Template R Script
+
+```r
+ospsuite.addins::copyQualificationTemplate()
+```
+
+## Additional Addins &#11088;
+
+### Convert your files to UTF-8
+
+Check and convert your files to UTF-8 encoding
+
+```r
+ospsuite.addins::utfCheck()
+```
 
 ## Code of conduct
 
