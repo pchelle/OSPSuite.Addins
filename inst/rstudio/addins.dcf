@@ -23,6 +23,11 @@ Description: View datatable of OSPSuite PK Parameters
 Binding: tableOfPKParameters
 Interactive: true
 
+Name: Check UTF-8 Encoding
+Description: Check and convert files to UTF-8 encoding
+Binding: utfCheck
+Interactive: true
+
 Name: View Report
 Description: View Reporting Engine Report
 Binding: viewReport
