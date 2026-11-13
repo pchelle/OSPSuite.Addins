@@ -1,0 +1,22 @@
+# Simulation Tree
+
+## Browsing the simulation tree
+
+The function
+[`runSimulationTree()`](https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/runSimulationTree.md)
+starts a shiny app in a RStudio dialog window that allows users to
+browse the simulation tree of a pkml simulation file, and select desired
+branches/leafs to be copied, as illustrated in the video below.
+
+View Simulation Tree Video
+
+[Video](https://www.open-systems-pharmacology.org/OSPSuite.Addins/articles/videos/simulation-tree.mp4)
+
+The shiny app includes a search bar to highlight branches/leafs that
+include defined keywords. However, using the search bar may slow down
+the interactivity of the app.
+
+The shiny app is based on the function
+[`ospsuite::getSimulationTree()`](https://www.open-systems-pharmacology.org/OSPSuite-R/reference/getSimulationTree.html)
+that returns a tree like structured list allowing for intuitive
+navigation in the simulation tree.

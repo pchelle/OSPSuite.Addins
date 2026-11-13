@@ -10,15 +10,21 @@
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/articles/unit-converter.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/authors.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/index.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/areFilesUTF8.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/copyQualificationTemplate.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/displayBranchNames.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/formatSimulationTree.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/getNormalizedEGFR.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/getPathByLeafName.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/index.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/insertOSPSuiteTemplate.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/oatFromEGFR.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/runEGFRUpdate.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/runSimulationTree.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/tableOfPKParameters.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/tableOfUnits.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/unitConverter.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/utfCheck.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/viewReport.html</loc></url>
 </urlset>
 
