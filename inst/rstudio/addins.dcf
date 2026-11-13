@@ -37,3 +37,8 @@ Name: Copy Qualification Template
 Description: Copy and open Qualification Template file
 Binding: copyQualificationTemplate
 Interactive: false
+
+Name: eGFR Update of Population
+Description: Apply eGFR related changes to OAT reference concentrations of a population file
+Binding: runEGFRUpdate
+Interactive: true
