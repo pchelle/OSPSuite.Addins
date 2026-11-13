@@ -71,6 +71,15 @@ View simulation tree and select branches
 ospsuite.addins::runSimulationTree()
 ```
 
+### eGFR Update of Population
+
+Apply eGFR related changes to OAT reference concentrations of a population file
+using the equation from [doi:10.1007/s40262-022-01121-6](https://doi.org/10.1007/s40262-022-01121-6)
+
+```r
+ospsuite.addins::runEGFRUpdate()
+```
+
 ### Insert OSPSuite Template
 
 Insert OSPSuite Template in your R Script
