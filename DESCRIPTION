@@ -24,6 +24,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     DT,
+    ggplot2,
     ospsuite,
     ospsuite.utils
 Depends: 
