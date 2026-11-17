@@ -76,6 +76,17 @@ ospsuite.addins::runSimulationTree()
 Apply eGFR related changes to OAT reference concentrations of a population file
 using the equation from [doi:10.1007/s40262-022-01121-6](https://doi.org/10.1007/s40262-022-01121-6)
 
+eGFR values are read from an Excel file exported from PK-Sim:
+
+1. Create a Scatter Plot including eGFR in PK-Sim
+2. Export the data of the Scatter Plot to an `xlsx` file
+3. Run the addin, select the population file and the exported eGFR data file
+
+The BSA adjusted eGFR values read from the file are converted to eGFR in mL/min
+using the BSA parameter of the population.
+The eGFR values are matched to the individuals of the population by order,
+so the Scatter Plot must be created from the population to update.
+
 ```r
 ospsuite.addins::runEGFRUpdate()
 ```
