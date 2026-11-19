@@ -4,7 +4,7 @@
 #' using the equation from \doi{10.1007/s40262-022-01121-6}:
 #' `oat * (1 - exp(-(egfr / 43.9)^0.9))`
 #' @param oat Numeric values of OAT reference concentrations
-#' @param egfr Numeric values of eGFR in mL/min/1.73m²
+#' @param egfr Numeric values of eGFR in mL/min
 #' @return Numeric values of updated OAT reference concentrations
 #' @export
 #' @examples
@@ -26,17 +26,48 @@ getPathByLeafName <- function(paths, name) {
   return(paths[leafNames %in% name])
 }
 
-#' @title getNormalizedEGFR
+#' @title getEGFRValues
 #' @description
-#' Get eGFR normalized by BSA in mL/min/1.73m² from population base unit values
-#' @param egfr eGFR values in base unit (l/min)
-#' @param bsa BSA values in base unit (dm²)
-#' @return Numeric values of normalized eGFR in mL/min/1.73m²
+#' Get BSA adjusted eGFR values in mL/min/1.73m² from the data of a PK-Sim
+#' Scatter Plot export including eGFR.
+#' The column names of the export carry the unit of the plotted quantities,
+#' e.g. `Kidney-eGFR [ml/min/1.73m²]`.
+#' @param data A `data.frame` with the data of a PK-Sim Scatter Plot export
+#' @return Numeric values of eGFR in mL/min/1.73m², or `NULL` if the eGFR
+#' column is missing or ambiguous
 #' @keywords internal
-getNormalizedEGFR <- function(egfr, bsa) {
-  egfr <- ospsuite::toUnit("Flow", egfr, "ml/min")
+getEGFRValues <- function(data) {
+  egfrColumns <- grep("(^|-)eGFR \\[[^]]+\\]$", names(data), value = TRUE)
+  if (length(egfrColumns) == 0) {
+    cli::cli_warn(
+      c("No eGFR column found in the Scatter Plot data.",
+        i = "Please export the data of a PK-Sim Scatter Plot including eGFR"
+      )
+    )
+    return(NULL)
+  }
+  if (length(egfrColumns) > 1) {
+    cli::cli_warn(
+      c("Multiple eGFR columns found in the Scatter Plot data.",
+        i = "Found {.val {egfrColumns}}",
+        i = "Please include eGFR only once in the PK-Sim Scatter Plot"
+      )
+    )
+    return(NULL)
+  }
+  return(as.numeric(data[[egfrColumns]]))
+}
+
+#' @title getAbsoluteEGFR
+#' @description
+#' Get eGFR in mL/min from BSA adjusted eGFR in mL/min/1.73m²
+#' @param egfr Numeric values of BSA adjusted eGFR in mL/min/1.73m²
+#' @param bsa Numeric values of BSA in base unit (dm²)
+#' @return Numeric values of eGFR in mL/min
+#' @keywords internal
+getAbsoluteEGFR <- function(egfr, bsa) {
   bsa <- ospsuite::toUnit("Area", bsa, "m\u00b2")
-  return(egfr * 1.73 / bsa)
+  return(egfr * bsa / 1.73)
 }
 
 #' @title runEGFRUpdate
@@ -44,6 +75,12 @@ getNormalizedEGFR <- function(egfr, bsa) {
 #' Popup shiny app that applies eGFR related changes to OAT reference
 #' concentrations of an OSPSuite population file using the equation from
 #' \doi{10.1007/s40262-022-01121-6} (see [oatFromEGFR()]).
+#' eGFR values are read from an Excel file exported from PK-Sim:
+#' create a Scatter Plot including eGFR and export its data.
+#' The BSA adjusted eGFR values in mL/min/1.73m² are converted to eGFR in
+#' mL/min with the BSA parameter of the population.
+#' The eGFR values are matched to the individuals of the population by order,
+#' so the Scatter Plot must be created from the population to update.
 #' The updated population is saved as a csv file selected by the user.
 #'
 #' @return A shiny app
@@ -51,6 +88,7 @@ getNormalizedEGFR <- function(egfr, bsa) {
 #' @import shiny
 #' @import miniUI
 #' @importFrom ggplot2 .data
+#' @importFrom readxl read_xlsx
 runEGFRUpdate <- function() {
   populationFile <- rstudioapi::selectFile(
     caption = "Select Population File",
@@ -67,90 +105,111 @@ runEGFRUpdate <- function() {
     )
     return(invisible())
   }
+  egfrFile <- rstudioapi::selectFile(
+    caption = "Select eGFR Scatter Plot Data File",
+    filter = "Excel (*.xlsx)"
+  )
+  if (is.null(egfrFile)) {
+    return(invisible())
+  }
+  if (!ospsuite.utils::isFileExtension(egfrFile, "xlsx")) {
+    cli::cli_warn(
+      c("Selected file is not a valid PK-Sim Scatter Plot data export.",
+        i = "Please select a {.strong '.xlsx'} file"
+      )
+    )
+    return(invisible())
+  }
   population <- ospsuite::loadPopulation(populationFile)
+  normalizedEGFR <- getEGFRValues(readxl::read_xlsx(egfrFile))
+  if (is.null(normalizedEGFR)) {
+    return(invisible())
+  }
+  if (population$count != length(normalizedEGFR)) {
+    cli::cli_warn(
+      c("Number of eGFR values ({length(normalizedEGFR)}) does not match the number of individuals in the population ({population$count}).",
+        i = "Please export the Scatter Plot data of the population to update"
+      )
+    )
+    return(invisible())
+  }
   variableNames <- population$allParameterPaths
   bsaPath <- getPathByLeafName(variableNames, "BSA")
-  egfrPath <- getPathByLeafName(variableNames, "eGFR")
-  isAvailable <- length(bsaPath) == 1 && length(egfrPath) == 1
-
-  if (isAvailable) {
-    egfr <- getNormalizedEGFR(
-      egfr = population$getParameterValues(egfrPath),
-      bsa = population$getParameterValues(bsaPath)
+  if (length(bsaPath) != 1) {
+    cli::cli_warn(
+      c("BSA parameter not available in the population data.",
+        i = "BSA is required to convert the BSA adjusted eGFR to mL/min"
+      )
     )
-    variableChoices <- setdiff(variableNames, c(bsaPath, egfrPath))
-    selectedVariables <- grep(
-      "reference concentration",
-      variableChoices,
-      ignore.case = TRUE,
-      value = TRUE
-    )
+    return(invisible())
   }
+  egfr <- getAbsoluteEGFR(
+    egfr = normalizedEGFR,
+    bsa = population$getParameterValues(bsaPath)
+  )
+  # BSA and eGFR are not eligible for the OAT scaling
+  variableChoices <- setdiff(
+    variableNames,
+    getPathByLeafName(variableNames, c("eGFR", "BSA"))
+  )
+  selectedVariables <- grep(
+    "reference concentration",
+    variableChoices,
+    ignore.case = TRUE,
+    value = TRUE
+  )
 
   # Shiny App UI
   ui <- miniPage(
     gadgetTitleBar(
       basename(populationFile),
-      right = if (isAvailable) {
-        miniTitleBarButton("done", "Update and Save", primary = TRUE)
-      }
+      right = miniTitleBarButton("done", "Update and Save", primary = TRUE)
     ),
     miniContentPanel(
-      if (isAvailable) {
-        fillCol(
-          flex = c(NA, 1),
-          selectInput(
-            "variableNames",
-            label = span(icon("list-check"), "Variables to update"),
-            choices = variableChoices,
-            selected = selectedVariables,
-            multiple = TRUE,
-            width = "100%"
-          ),
-          plotOutput("egfrPlot", height = "100%")
-        )
-      } else {
-        HTML(paste0(
-          "<font color=\"darkred\">",
-          icon("triangle-exclamation"),
-          " BSA/eGFR not available in Population data",
-          "</font>"
-        ))
-      }
+      fillCol(
+        flex = c(NA, 1),
+        selectInput(
+          "variableNames",
+          label = span(icon("list-check"), "Variables to update"),
+          choices = variableChoices,
+          selected = selectedVariables,
+          multiple = TRUE,
+          width = "100%"
+        ),
+        plotOutput("egfrPlot", height = "100%")
+      )
     )
   )
 
   # Shiny App Server
   server <- function(input, output, session) {
-    if (isAvailable) {
-      output$egfrPlot <- renderPlot({
-        req(input$variableNames)
-        plotData <- do.call(
-          rbind,
-          lapply(input$variableNames, function(variableName) {
-            values <- population$getParameterValues(variableName)
-            data.frame(
-              eGFR = rep(egfr, 2),
-              Value = c(values, oatFromEGFR(values, egfr)),
-              Population = rep(c("Original", "Updated"), each = length(values)),
-              Variable = variableName
-            )
-          })
-        )
-        ggplot2::ggplot(
-          plotData,
-          ggplot2::aes(x = .data$eGFR, y = .data$Value, color = .data$Population)
+    output$egfrPlot <- renderPlot({
+      req(input$variableNames)
+      plotData <- do.call(
+        rbind,
+        lapply(input$variableNames, function(variableName) {
+          values <- population$getParameterValues(variableName)
+          data.frame(
+            eGFR = rep(egfr, 2),
+            Value = c(values, oatFromEGFR(values, egfr)),
+            Population = rep(c("Original", "Updated"), each = length(values)),
+            Variable = variableName
+          )
+        })
+      )
+      ggplot2::ggplot(
+        plotData,
+        ggplot2::aes(x = .data$eGFR, y = .data$Value, color = .data$Population)
+      ) +
+        ggplot2::geom_point(alpha = 0.6) +
+        ggplot2::scale_color_manual(
+          values = c(Original = "grey60", Updated = "dodgerblue")
         ) +
-          ggplot2::geom_point(alpha = 0.6) +
-          ggplot2::scale_color_manual(
-            values = c(Original = "grey60", Updated = "dodgerblue")
-          ) +
-          ggplot2::facet_wrap(~Variable, scales = "free_y", ncol = 1) +
-          ggplot2::labs(x = "eGFR [mL/min/1.73m\u00b2]", y = NULL, color = NULL) +
-          ggplot2::theme_bw() +
-          ggplot2::theme(legend.position = "top")
-      })
-    }
+        ggplot2::facet_wrap(~Variable, scales = "free_y", ncol = 1) +
+        ggplot2::labs(x = "eGFR [mL/min]", y = NULL, color = NULL) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(legend.position = "top")
+    })
 
     observeEvent(input$done, {
       outputFile <- rstudioapi::selectFile(

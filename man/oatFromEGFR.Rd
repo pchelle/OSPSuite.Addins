@@ -9,7 +9,7 @@ oatFromEGFR(oat, egfr)
 \arguments{
 \item{oat}{Numeric values of OAT reference concentrations}
 
-\item{egfr}{Numeric values of eGFR in mL/min/1.73m²}
+\item{egfr}{Numeric values of eGFR in mL/min}
 }
 \value{
 Numeric values of updated OAT reference concentrations

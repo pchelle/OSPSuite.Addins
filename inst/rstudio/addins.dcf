@@ -39,6 +39,6 @@ Binding: copyQualificationTemplate
 Interactive: false
 
 Name: eGFR Update of Population
-Description: Apply eGFR related changes to OAT reference concentrations of a population file
+Description: Apply eGFR related changes from a PK-Sim Scatter Plot data export to OAT reference concentrations of a population file
 Binding: runEGFRUpdate
 Interactive: true
