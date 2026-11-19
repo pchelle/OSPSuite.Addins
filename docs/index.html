@@ -116,6 +116,13 @@
 <h3 id="egfr-update-of-population">eGFR Update of Population<a class="anchor" aria-label="anchor" href="#egfr-update-of-population"></a>
 </h3>
 <p>Apply eGFR related changes to OAT reference concentrations of a population file using the equation from <a href="https://doi.org/10.1007/s40262-022-01121-6" class="external-link">doi:10.1007/s40262-022-01121-6</a></p>
+<p>eGFR values are read from an Excel file exported from PK-Sim:</p>
+<ol style="list-style-type: decimal">
+<li>Create a Scatter Plot including eGFR in PK-Sim</li>
+<li>Export the data of the Scatter Plot to an <code>xlsx</code> file</li>
+<li>Run the addin, select the population file and the exported eGFR data file</li>
+</ol>
+<p>The BSA adjusted eGFR values read from the file are converted to eGFR in mL/min using the BSA parameter of the population. The eGFR values are matched to the individuals of the population by order, so the Scatter Plot must be created from the population to update.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ospsuite.addins</span><span class="fu">::</span><span class="fu"><a href="reference/runEGFRUpdate.html">runEGFRUpdate</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>

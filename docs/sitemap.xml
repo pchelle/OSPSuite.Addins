@@ -14,6 +14,8 @@
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/copyQualificationTemplate.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/displayBranchNames.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/formatSimulationTree.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/getAbsoluteEGFR.html</loc></url>
+<url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/getEGFRValues.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/getNormalizedEGFR.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/getPathByLeafName.html</loc></url>
 <url><loc>https://www.open-systems-pharmacology.org/OSPSuite.Addins/reference/index.html</loc></url>

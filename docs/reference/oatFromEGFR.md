@@ -19,7 +19,7 @@ oatFromEGFR(oat, egfr)
 
 - egfr:
 
-  Numeric values of eGFR in mL/min/1.73m²
+  Numeric values of eGFR in mL/min
 
 ## Value
 
